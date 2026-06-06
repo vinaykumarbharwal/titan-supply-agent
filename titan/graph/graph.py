@@ -1,7 +1,12 @@
 import os
 import sqlite3
-from typing import Dict, Any, Literal
+import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding='utf-8')
 from dotenv import load_dotenv
+from typing import Dict, Any, Literal
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
 
