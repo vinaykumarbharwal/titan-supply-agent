@@ -1,0 +1,13 @@
+langgraph
+langchain-core
+langchain-community
+litellm
+pydantic>=2.0
+pandas
+sqlalchemy
+pyyaml
+chainlit
+python-dotenv
+psycopg2-binary
+requests
+pgvector

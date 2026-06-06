@@ -1,0 +1,36 @@
+risk_signals:
+  - keyword: "crude oil"
+    threshold_pct: 5
+    impact_model: "shipping_cost_linear"
+  - keyword: "port strike"
+    threshold_pct: 0
+    impact_model: "route_disruption"
+  - keyword: "commodity shortage"
+    threshold_pct: 10
+    impact_model: "supply_shortage"
+
+suppliers:
+  - id: "SUP-A"
+    name: "Supplier A"
+    email: "procurement@supplier-a.com"
+    max_discount_ask_pct: 4.5
+  - id: "SUP-B"
+    name: "Supplier B"
+    email: "procurement@supplierb.com"
+    max_discount_ask_pct: 5.0
+  - id: "SUP-C"
+    name: "Supplier C"
+    email: "sales@supplier-c.com"
+    max_discount_ask_pct: 3.0
+
+compliance:
+  max_pricing_lock_months: 12
+  block_keywords: 
+    - "gift"
+    - "gratuity"
+    - "guaranteed fixed price"
+    - "under the table"
+    - "kickback"
+
+schedule:
+  scout_interval_hours: 6

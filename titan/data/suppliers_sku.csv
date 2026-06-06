@@ -1,0 +1,7 @@
+supplier_id,supplier_name,sku,commodity,base_cost,base_shipping,margin_pct,lead_time_days
+SUP-A,Supplier A,SKU-101,crude_oil,45.0,8.5,0.20,15
+SUP-A,Supplier A,SKU-102,steel,120.0,22.0,0.15,30
+SUP-B,Supplier B,SKU-201,crude_oil,50.0,10.0,0.18,12
+SUP-B,Supplier B,SKU-202,shipping,0.0,250.0,0.22,7
+SUP-C,Supplier C,SKU-301,copper,350.0,45.0,0.12,45
+SUP-C,Supplier C,SKU-302,crude_oil,55.0,12.0,0.17,14
