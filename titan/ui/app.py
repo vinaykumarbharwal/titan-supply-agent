@@ -1,4 +1,7 @@
 import os
+import sys
+# Resolve package paths for Chainlit execution context
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 import json
 import asyncio
 import uuid
