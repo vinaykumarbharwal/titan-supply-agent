@@ -189,4 +189,27 @@ Titan Supply Logistics"""
         
     except Exception as e:
         print(f"[Negotiator] LLM execution failed: {e}. Returning fallback draft.")
-        return run_negotiator_draft(impact_report, feedback=feedback) # Retries once
+        mock_subject = f"Urgent: Collaborative Cost-Sharing Proposal - Titan Logistics & {worst_sup_name}"
+        mock_body = f"""Dear {worst_sup_name} Procurement Team,
+
+I hope this email finds you well.
+
+We value our long-standing partnership and are writing to discuss recent developments in the logistics market. Due to the recent {impact_report.risk_headline}, we have experienced a significant surge in shipping costs of ${impact_report.total_cost_increase:,.2f} across our shared supply lines.
+
+To maintain our inventory levels and avoid downstream pricing hikes, we are proposing a collaborative cost-sharing initiative. Specifically, we request a temporary discount of {discount_ask:.2f}% on SKU deliveries over the next quarter.
+
+We appreciate your flexibility and commitment to our mutual success. Please let us know when we can hop on a brief call to align on these terms.
+
+Sincerely,
+Strategic Sourcing Department
+Titan Supply Logistics"""
+        
+        return NegotiationDraft(
+            supplier_id=worst_sup_id,
+            supplier_name=worst_sup_name,
+            to_email=to_email,
+            subject=mock_subject,
+            body=mock_body,
+            discount_requested=discount_ask,
+            compliance_status="pending"
+        )
