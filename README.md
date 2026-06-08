@@ -32,7 +32,7 @@ Imagine you run a logistics company and a global disruption occurs (like an oil 
 ## 🏗️ Multi-Agent Architecture
 
 ```
-[START]
+[START..]
    │
    ▼
 [Scout Agent]       ◄─── Scans global news via Tavily / GDELT (triggers on energy, labor, supply events)
