@@ -127,7 +127,7 @@ titan-supply-agent/
 
 ---
 
-## 🛠️ Setup Instructions
+## 🛠️ Setup Instruction
 
 ### 1. Pre-requisites
 Make sure you have Python 3.9+ installed on your system.
