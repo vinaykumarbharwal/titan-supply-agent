@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import sys
+import asyncio
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding='utf-8')
 if hasattr(sys.stderr, "reconfigure"):
@@ -26,16 +27,31 @@ from titan.graph.nodes import (
 load_dotenv()
 
 # Setup Persistency Checkpointer
-# We will use SqliteSaver for local state checkpointing persistence
+# We will use SqliteSaver for local state checkpointing persistence in sync contexts.
+# In async contexts (like Chainlit), we will use MemorySaver to avoid async SqliteSaver issues.
 try:
-    from langgraph.checkpoint.sqlite import SqliteSaver
-    db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "titan_checkpoints.db"))
-    conn = sqlite3.connect(db_path, check_same_thread=False)
-    checkpointer = SqliteSaver(conn)
-    print(f"[Checkpointer] Persistent SqliteSaver configured at {db_path}")
-except Exception as e:
-    print(f"[Checkpointer Fallback] Could not initialize SqliteSaver: {e}. Using MemorySaver.")
+    asyncio.get_running_loop()
+    use_memory_saver = True
+except RuntimeError:
+    use_memory_saver = False
+
+# Force MemorySaver if run under Chainlit command line
+if any("chainlit" in arg for arg in sys.argv):
+    use_memory_saver = True
+
+if use_memory_saver:
     checkpointer = MemorySaver()
+    print("[Checkpointer] Running in async/Chainlit context. Using MemorySaver for compatibility.")
+else:
+    try:
+        from langgraph.checkpoint.sqlite import SqliteSaver
+        db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "titan_checkpoints.db"))
+        conn = sqlite3.connect(db_path, check_same_thread=False)
+        checkpointer = SqliteSaver(conn)
+        print(f"[Checkpointer] Persistent SqliteSaver configured at {db_path}")
+    except Exception as e:
+        print(f"[Checkpointer Fallback] Could not initialize SqliteSaver: {e}. Using MemorySaver.")
+        checkpointer = MemorySaver()
 
 # Build Graph Workflow
 workflow = StateGraph(TitanState)
