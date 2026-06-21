@@ -123,9 +123,9 @@ async def display_state_report(state: dict):
         
     # 4. Human Approval Gateway Action Buttons
     actions = [
-        cl.Action(name="approve_draft", value="approve", label="🚀 Approve & Send", description="Email negotiation directly to supplier"),
-        cl.Action(name="edit_draft", value="edit", label="📝 Edit Draft", description="Adjust email body inline"),
-        cl.Action(name="reject_draft", value="reject", label="❌ Discard", description="Cancel proposal and close war room cycle")
+        cl.Action(name="approve_draft", value="approve", label="🚀 Approve & Send", description="Email negotiation directly to supplier", payload={"action": "approve"}),
+        cl.Action(name="edit_draft", value="edit", label="📝 Edit Draft", description="Adjust email body inline", payload={"action": "edit"}),
+        cl.Action(name="reject_draft", value="reject", label="❌ Discard", description="Cancel proposal and close war room cycle", payload={"action": "discard"})
     ]
     
     await cl.Message(
